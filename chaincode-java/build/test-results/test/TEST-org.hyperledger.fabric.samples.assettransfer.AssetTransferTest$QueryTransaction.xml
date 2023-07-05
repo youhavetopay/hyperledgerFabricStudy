@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$QueryTransaction" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-28T00:01:06" hostname="creativehillui-iMac.local" time="0.006">
+  <properties/>
+  <testcase name="whenAccountGetAll()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$QueryTransaction" time="0.006"/>
+  <system-out><![CDATA[[{"accountId":"asset1","amount":2000,"owner":"A","type":"USER"},{"accountId":"asset2","amount":0,"owner":"B","type":"USER"},{"accountId":"asset3","amount":0,"owner":"creativehill","type":"COMMISSION"}]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

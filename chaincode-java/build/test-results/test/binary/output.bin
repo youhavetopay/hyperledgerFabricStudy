@@ -1,0 +1,3 @@
+Ê[{"accountId":"asset1","amount":2000,"owner":"A","type":"USER"},{"accountId":"asset2","amount":0,"owner":"B","type":"USER"},{"accountId":"asset3","amount":0,"owner":"creativehill","type":"COMMISSION"}]
+Account asset1 already exists
+Account asset1 does not exist

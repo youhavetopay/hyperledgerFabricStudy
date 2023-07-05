@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeCreateAssetTransaction" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-06-28T00:01:06" hostname="creativehillui-iMac.local" time="0.004">
+  <properties/>
+  <testcase name="whenAssetExists()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeCreateAssetTransaction" time="0.002"/>
+  <testcase name="whenAssetDoesNotExist()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeCreateAssetTransaction" time="0.001"/>
+  <system-out><![CDATA[Account asset1 already exists
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

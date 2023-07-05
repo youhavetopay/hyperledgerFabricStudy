@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeTransferAccountTransaction" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-06-28T00:01:06" hostname="creativehillui-iMac.local" time="0.174">
+  <properties/>
+  <testcase name="whenTransferNotBetweenUsers()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeTransferAccountTransaction" time="0.16"/>
+  <testcase name="whenTransferBetweenUsers()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeTransferAccountTransaction" time="0.01"/>
+  <testcase name="whenTransferNotBetweenUsersAndBigAmount()" classname="org.hyperledger.fabric.samples.assettransfer.AssetTransferTest$InvokeTransferAccountTransaction" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

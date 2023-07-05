@@ -1,0 +1,209 @@
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <h1>Hello World</h1>
+
+        <div style="margin-bottom: 50px;">
+            <h2>계좌 생성</h2>
+            <div>
+                <span>소유자</span>
+                <input id="owner">
+            </div>
+            <div>
+                <span>초기금액</span>
+                <input id="amount" type="number">
+            </div>
+            <div>
+                <span>계좌타입</span>
+                <select id="type"></select>
+            </div>
+            <button onclick="save()">저장</button>
+        </div>
+
+        <div style="margin-bottom: 50px;">
+            <h2>계좌 이체</h2>
+            <div>
+                <span>보내는 계좌 번호</span>
+                <input id="sender" type="number">
+            </div>
+            <div>
+                <span>받는 계좌 번호</span>
+                <input id="receiver" type="number">
+            </div>
+            <div>
+                <span>송금 금액</span>
+                <input id="sendAmount" type="number">
+            </div>
+            <button onclick="transfer()">이체</button>
+        </div>
+
+        <table id="body" border="1">
+            <tr>
+                <th>계좌번호</th>
+                <th>소유자</th>
+                <th>계좌잔액</th>
+                <th>계좌타입</th>
+            </tr>
+        </table>
+
+        <script>
+
+            const load = async () => {
+                const response = await fetch("account/list");
+                const jsonData = await response.json();
+
+                const table = document.getElementById("body");
+
+                table.replaceChildren();
+                const tHead = document.createElement("tr");
+                const accountIdTh = document.createElement("th");
+                const ownerTh = document.createElement("th");
+                const amountTh = document.createElement("th");
+                const typeTh = document.createElement("th");
+
+                accountIdTh.innerHTML = "계좌번호";
+                ownerTh.innerHTML = "소유자";
+                amountTh.innerHTML = "계좌잔액";
+                typeTh.innerHTML = "계좌타입";
+
+                tHead.appendChild(accountIdTh);
+                tHead.appendChild(ownerTh);
+                tHead.appendChild(amountTh);
+                tHead.appendChild(typeTh);
+
+                table.appendChild(tHead);
+
+                console.log(jsonData);
+
+                jsonData.forEach((data)=>{
+                    
+                    const row = document.createElement("tr");
+                    const accountId = document.createElement("td");
+                    const owner = document.createElement("td");
+                    const amount = document.createElement("td");
+                    const type = document.createElement("td");
+
+                    accountId.innerHTML = data.accountId;
+                    owner.innerHTML = data.owner;
+                    amount.innerHTML = (data.amount).toLocaleString();
+                    type.innerHTML = data.type;
+
+                    row.appendChild(accountId);
+                    row.appendChild(owner);
+                    row.appendChild(amount);
+                    row.appendChild(type);
+
+                    table.appendChild(row);
+                });
+            }
+            
+            const save = async () => {
+                const owner = document.getElementById("owner");
+                const amount = document.getElementById("amount");
+                const type = document.getElementById("type");
+
+                if (!owner.value || !amount.value || !type.value){
+                    alert("소유자, 초기 금액, 타입 빼 먹음");
+                    return;
+                }
+
+                console.log(owner.value, amount.value, type.value);
+
+                
+                const response = await fetch("account/create", {
+                    method : 'POST',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+
+                    body : JSON.stringify({
+                        owner : owner.value,
+                        amount : amount.value,
+                        type : type.value
+                    })
+
+                });
+                
+                const responseData = await response.json();
+                if ("code" in responseData && responseData.code != "201"){
+                    alert(responseData.message);
+                    return;
+                }
+
+                await load();
+
+                owner.value = "";
+                amount.value = "";
+                
+            }
+
+            const transfer = async () => {
+                const sender = document.getElementById("sender");
+                const receiver = document.getElementById("receiver");
+                const sendAmount = document.getElementById("sendAmount");
+
+                if (!sender.value || !receiver.value || !sendAmount.value){
+                    alert("보내는 계좌, 받는 계좌, 송금 금액 빼 먹음");
+                    return;
+                }
+
+                
+                const response = await fetch("account/transfer", {
+                    method : 'PUT',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+
+                    body : JSON.stringify({
+                        sender : sender.value,
+                        receiver : receiver.value,
+                        sendAmount : sendAmount.value
+                    })
+
+                });
+
+                const responseData = await response.json();
+
+                if ("code" in responseData && responseData.code != "201"){
+                    alert(responseData.message);
+                    return;
+                }
+
+                alert( '이체 성공 ' + responseData.message);
+
+                sender.value = "";
+                receiver.value = "";
+                sendAmount.value = "";
+
+                await load();
+
+                
+
+            }
+            
+            const loadAccountType = () => {
+                const acountTypes = ["USER", "COMPANY", "COMMISSION"];
+
+                const type = document.getElementById("type");
+                type.replaceChildren();
+
+                for (const typeValue of acountTypes){
+                    const option = document.createElement('option');
+                    option.value = typeValue;
+                    option.innerHTML = typeValue;
+
+                    type.appendChild(option);
+                }
+            }
+
+            loadAccountType();
+
+            load();
+
+        </script>
+    </body>
+</html>
